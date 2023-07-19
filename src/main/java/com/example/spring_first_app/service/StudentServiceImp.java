@@ -65,7 +65,8 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public boolean deleteStudentById(int id) {
-
-        return false;
+        Student student = studentRepository.getStudentById(id);
+        studentRepository.delete(student);
+        return true;
     }
 }
