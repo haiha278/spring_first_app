@@ -43,10 +43,8 @@ public class TestController {
     }
 
     @DeleteMapping("/deleteStudent/{id}")
-    public Map<String, Boolean> deleteStudent(@PathVariable Integer id) {
-        Map<String, Boolean> response = new HashMap<>();
+    public ResponseEntity<Object> deleteStudent(@PathVariable Integer id) {
         boolean check = studentService.deleteStudentById(id);
-        response.put("deleted", check);
-        return response;
+        return new ResponseEntity<>(check, HttpStatus.ACCEPTED);
     }
 }

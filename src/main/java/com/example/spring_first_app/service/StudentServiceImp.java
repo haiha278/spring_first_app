@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @Repository
@@ -33,12 +34,19 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public StudentDTO getStudentById(int id) {
-        Student student = studentRepository.getStudentById(id);
+        Student student = new Student();
         StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setId(student.getId());
-        studentDTO.setName(student.getName());
-        studentDTO.setAge(student.getAge());
-        studentDTO.setGpa(student.getGpa());
+        try {
+            student = studentRepository.getStudentById(id);
+        } catch (Exception e) {
+        } finally {
+            if (student != null) {
+                studentDTO.setId(student.getId());
+                studentDTO.setName(student.getName());
+                studentDTO.setAge(student.getAge());
+                studentDTO.setGpa(student.getGpa());
+            }
+        }
         return studentDTO;
     }
 
@@ -55,18 +63,43 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public StudentDTO updateStudentById(int id, StudentDTO studentDTO) {
-        Student student = studentRepository.getStudentById(id);
-        student.setName(studentDTO.getName());
-        student.setGpa(studentDTO.getGpa());
-        student.setAge(studentDTO.getAge());
-        studentRepository.save(student);
+        Student student = new Student();
+        try {
+            student = studentRepository.getStudentById(id);
+        } catch (Exception e) {
+
+        } finally {
+            if (student != null) {
+                if (!studentDTO.getName().equals(null)) {
+                    student.setName(studentDTO.getName());
+                }
+                if (studentDTO.getGpa() != 0.0) {
+                    student.setGpa(studentDTO.getGpa());
+                }
+                if (studentDTO.getAge() != 0) {
+                    student.setAge(studentDTO.getAge());
+                }
+                studentRepository.save(student);
+            }
+        }
         return studentDTO;
     }
 
     @Override
     public boolean deleteStudentById(int id) {
-        Student student = studentRepository.getStudentById(id);
-        studentRepository.delete(student);
-        return true;
+        Student student = new Student();
+        boolean check = false;
+        try {
+            student = studentRepository.getStudentById(id);
+        } catch (Exception e) {
+        } finally {
+            if (student != null) {
+                studentRepository.delete(student);
+                check = true;
+            }else {
+                check = false;
+            }
+        }
+        return check;
     }
 }
