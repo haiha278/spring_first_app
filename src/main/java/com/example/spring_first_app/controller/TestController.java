@@ -1,7 +1,6 @@
 package com.example.spring_first_app.controller;
 
 import com.example.spring_first_app.dto.StudentDTO;
-import com.example.spring_first_app.entity.Student;
 import com.example.spring_first_app.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,8 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class TestController {
