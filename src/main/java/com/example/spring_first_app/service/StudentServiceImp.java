@@ -1,8 +1,10 @@
 package com.example.spring_first_app.service;
 
+import com.example.spring_first_app.common.Messages;
 import com.example.spring_first_app.dto.StudentDTO;
 import com.example.spring_first_app.entity.Student;
 import com.example.spring_first_app.repository.StudentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 @Repository
 public class StudentServiceImp implements StudentService {
     @Autowired
@@ -38,6 +41,7 @@ public class StudentServiceImp implements StudentService {
         try {
             student = studentRepository.getStudentById(id);
         } catch (Exception e) {
+            log.error(Messages.HANDLED_EXCEPTION);
         } finally {
             if (student != null) {
                 studentDTO.setId(student.getId());
@@ -66,7 +70,7 @@ public class StudentServiceImp implements StudentService {
         try {
             student = studentRepository.getStudentById(id);
         } catch (Exception e) {
-
+            log.error(Messages.HANDLED_EXCEPTION);
         } finally {
             if (student != null) {
                 if (!studentDTO.getName().equals(null)) {
@@ -91,11 +95,12 @@ public class StudentServiceImp implements StudentService {
         try {
             student = studentRepository.getStudentById(id);
         } catch (Exception e) {
+            log.error(Messages.HANDLED_EXCEPTION);
         } finally {
             if (student != null) {
                 studentRepository.delete(student);
                 check = true;
-            }else {
+            } else {
                 check = false;
             }
         }
