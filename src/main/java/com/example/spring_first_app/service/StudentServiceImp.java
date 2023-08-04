@@ -70,7 +70,7 @@ public class StudentServiceImp implements StudentService {
         try {
             student = studentRepository.getStudentById(id);
             if (student != null) {
-                if (!studentDTO.getName().equals(null)) {
+                if (studentDTO.getName() != null) {
                     student.setName(studentDTO.getName());
                 }
                 if (studentDTO.getGpa() != 0.0) {
