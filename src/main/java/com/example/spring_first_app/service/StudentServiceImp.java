@@ -40,17 +40,17 @@ public class StudentServiceImp implements StudentService {
         StudentDTO studentDTO = new StudentDTO();
         try {
             student = studentRepository.getStudentById(id);
-        } catch (Exception e) {
-            log.error(Messages.HANDLED_EXCEPTION);
-        } finally {
             if (student != null) {
                 studentDTO.setId(student.getId());
                 studentDTO.setName(student.getName());
                 studentDTO.setAge(student.getAge());
                 studentDTO.setGpa(student.getGpa());
+                return studentDTO;
             }
+        } catch (Exception e) {
+            log.error(Messages.HANDLED_EXCEPTION);
         }
-        return studentDTO;
+        return null;
     }
 
     @Override
@@ -69,9 +69,6 @@ public class StudentServiceImp implements StudentService {
         Student student = new Student();
         try {
             student = studentRepository.getStudentById(id);
-        } catch (Exception e) {
-            log.error(Messages.HANDLED_EXCEPTION);
-        } finally {
             if (student != null) {
                 if (!studentDTO.getName().equals(null)) {
                     student.setName(studentDTO.getName());
@@ -83,9 +80,12 @@ public class StudentServiceImp implements StudentService {
                     student.setAge(studentDTO.getAge());
                 }
                 studentRepository.save(student);
+                return studentDTO;
             }
+        } catch (Exception e) {
+            log.error(Messages.HANDLED_EXCEPTION);
         }
-        return studentDTO;
+        return null;
     }
 
     @Override
@@ -94,15 +94,14 @@ public class StudentServiceImp implements StudentService {
         boolean check = false;
         try {
             student = studentRepository.getStudentById(id);
-        } catch (Exception e) {
-            log.error(Messages.HANDLED_EXCEPTION);
-        } finally {
             if (student != null) {
                 studentRepository.delete(student);
                 check = true;
             } else {
                 check = false;
             }
+        } catch (Exception e) {
+            log.error(Messages.HANDLED_EXCEPTION);
         }
         return check;
     }
