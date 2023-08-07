@@ -17,4 +17,14 @@ public class StudentDTO {
     private String name;
     private int age;
     private double gpa;
+
+    @Override
+    public String toString() {
+        return "StudentDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", gpa=" + gpa +
+                '}';
+    }
 }

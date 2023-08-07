@@ -1,6 +1,7 @@
 package com.example.spring_first_app.entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,4 +20,15 @@ public class Student {
     private double gpa;
     @OneToMany(mappedBy = "student")
     private List<StudentGroup> studentGroups;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", gpa=" + gpa +
+                ", studentGroups=" + studentGroups +
+                '}';
+    }
 }

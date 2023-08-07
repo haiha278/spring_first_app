@@ -5,6 +5,7 @@ import com.example.spring_first_app.dto.StudentDTO;
 import com.example.spring_first_app.entity.Student;
 import com.example.spring_first_app.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,7 @@ public class StudentServiceImp implements StudentService {
         ArrayList<StudentDTO> studentDTOS = new ArrayList<>();
         List<Student> studentList = studentRepository.findAll();
         for (Student student : studentList) {
-            StudentDTO studentDTO = new StudentDTO();
-            studentDTO.setId(student.getId());
-            studentDTO.setName(student.getName());
-            studentDTO.setAge(student.getAge());
-            studentDTO.setGpa(student.getGpa());
+            StudentDTO studentDTO = new ModelMapper().map(student, StudentDTO.class);
             studentDTOS.add(studentDTO);
         }
         return studentDTOS;
@@ -36,15 +33,10 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public StudentDTO getStudentById(int id) {
-        Student student = new Student();
-        StudentDTO studentDTO = new StudentDTO();
         try {
-            student = studentRepository.getStudentById(id);
+            Student student = studentRepository.getStudentById(id);
             if (student != null) {
-                studentDTO.setId(student.getId());
-                studentDTO.setName(student.getName());
-                studentDTO.setAge(student.getAge());
-                studentDTO.setGpa(student.getGpa());
+                StudentDTO studentDTO = new ModelMapper().map(student, StudentDTO.class);
                 return studentDTO;
             }
         } catch (Exception e) {
@@ -55,10 +47,7 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public StudentDTO insertStudent(StudentDTO studentDTO) {
-        Student student = new Student();
-        student.setName(studentDTO.getName());
-        student.setAge(studentDTO.getAge());
-        student.setGpa(studentDTO.getGpa());
+        Student student = new ModelMapper().map(studentDTO, Student.class);
         studentRepository.save(student);
         studentDTO.setId(student.getId());
         return studentDTO;
