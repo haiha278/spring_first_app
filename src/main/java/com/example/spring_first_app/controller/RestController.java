@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
-@RestController
-public class TestController {
+@org.springframework.web.bind.annotation.RestController
+public class RestController {
     @Autowired
     private StudentService studentService;
 
@@ -44,4 +44,6 @@ public class TestController {
         boolean check = studentService.deleteStudentById(id);
         return new ResponseEntity<>(check, HttpStatus.ACCEPTED);
     }
+
+
 }
