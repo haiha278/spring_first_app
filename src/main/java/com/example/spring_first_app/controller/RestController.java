@@ -1,7 +1,10 @@
 package com.example.spring_first_app.controller;
 
+import com.example.spring_first_app.dto.LoginDTO;
 import com.example.spring_first_app.dto.StudentDTO;
+import com.example.spring_first_app.dto.UserDTO;
 import com.example.spring_first_app.service.StudentService;
+import com.example.spring_first_app.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,8 @@ import java.util.ArrayList;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
+    @Autowired
+    private UserServiceImp userServiceImp;
     @Autowired
     private StudentService studentService;
 
@@ -45,5 +50,20 @@ public class RestController {
         return new ResponseEntity<>(check, HttpStatus.ACCEPTED);
     }
 
+    @PostMapping("/create-user")
+    public ResponseEntity<Object> createUser(@RequestBody UserDTO userDTO) {
+        UserDTO user = userServiceImp.createUser(userDTO);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<LoginDTO> login(@RequestBody UserDTO userDTO){
+        var result = userServiceImp.login(userDTO);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
+    @PostMapping("/refresh-token")
+    public ResponseEntity<LoginDTO> refresh(@RequestHeader(value = "refresh-token") String refreshToken){
+        var result = userServiceImp.refresh(refreshToken);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

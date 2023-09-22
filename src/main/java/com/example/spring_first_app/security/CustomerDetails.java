@@ -12,6 +12,9 @@ import java.util.Collections;
 public class CustomerDetails implements UserDetails {
     User user;
 
+    public CustomerDetails(User user) {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
