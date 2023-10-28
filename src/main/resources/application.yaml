@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /demo/v1/
+    context-path:
 
 spring:
   datasource:
@@ -16,3 +16,10 @@ spring:
     hibernate:
       format-sql: true
       dialect: org.hibernate.dialect.SQLServerDialect
+
+jwt:
+  secret: duongtest
+  refresh-secret: duongrefreshtoken
+  expiration:
+    jwt: 604800000
+    refresh-jwt: 1209600000
