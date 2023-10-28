@@ -1,6 +1,8 @@
 package com.example.spring_first_app.security;
 
 import com.example.spring_first_app.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,11 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+@Data
+@AllArgsConstructor
 public class CustomerDetails implements UserDetails {
     User user;
 
-    public CustomerDetails(User user) {
-    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -25,7 +25,7 @@ public class JwtTokenProvider {
         claim.put("test", "ha");
         claim.put("test2", "ha");
         return Jwts.builder()
-                .setSubject(Integer.toString(customerDetails.user.getId()))
+                .setSubject(Integer.toString(customerDetails.getUser().getId()))
                 .setIssuedAt(now)
                 .addClaims(claim)
                 .setExpiration(expiredDate)

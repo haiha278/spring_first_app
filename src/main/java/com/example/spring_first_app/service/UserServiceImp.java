@@ -33,7 +33,7 @@ public class UserServiceImp implements UserDetailsService {
         try {
             Optional<User> user = userRepository.findByName(username);
             if (user != null) {
-                CustomerDetails customerDetails = new ModelMapper().map(user, CustomerDetails.class);
+                CustomerDetails customerDetails = new ModelMapper().map(user.get(), CustomerDetails.class);
                 return customerDetails;
             }
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class UserServiceImp implements UserDetailsService {
 
     public UserDetails loadUserByID(Integer id) {
         Optional<User> user = userRepository.findById(id);
-        CustomerDetails customerDetails = new ModelMapper().map(user, CustomerDetails.class);
+        CustomerDetails customerDetails = new CustomerDetails(user.get());
         return customerDetails;
     }
 
