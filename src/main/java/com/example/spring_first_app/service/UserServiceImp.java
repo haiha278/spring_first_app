@@ -88,6 +88,4 @@ public class UserServiceImp implements UserDetailsService {
                 .refreshToken(refreshTokenGenerated)
                 .build();
     }
-
-
 }
